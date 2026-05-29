@@ -5,7 +5,7 @@ import ProjectCard from '../components/ProjectCard.astro';
 import { getCollection } from 'astro:content';
 import projects from '../data/projects.json';
 
-const featuredProjects = projects.slice(0, 3);
+const featuredProjects = projects.filter((p) => p.title === 'dataverse-to-adls-sync');
 
 const allPosts = await getCollection('blog');
 const recentPosts = allPosts
@@ -50,7 +50,8 @@ if (current) experience.push(current);
       </p>
       <div class="hero-links">
         <a href="#experience" class="btn btn-primary">Past Experience</a>
-        <a href="/about" class="btn btn-secondary">About Me</a>
+        <a href="/projects" class="btn btn-accent">AI Projects</a>
+        <a href="/contact" class="btn btn-secondary">Contact Me</a>
       </div>
     </div>
   </section>
@@ -201,6 +202,17 @@ if (current) experience.push(current);
   }
 
   .btn-secondary:hover {
+    background: var(--accent);
+    color: #000;
+  }
+
+  .btn-accent {
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+  }
+
+  .btn-accent:hover {
     background: var(--accent);
     color: #000;
   }
