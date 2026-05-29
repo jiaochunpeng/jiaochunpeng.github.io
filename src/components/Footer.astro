@@ -1,0 +1,45 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <p class="copyright">&copy; {year} jiaochunpeng</p>
+    <div class="social-links">
+      <a href="https://github.com/jiaochunpeng" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 0;
+    margin-top: 4rem;
+  }
+
+  .footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .copyright {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+  }
+
+  .social-links {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .social-links a {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+  }
+
+  .social-links a:hover {
+    color: var(--accent);
+  }
+</style>

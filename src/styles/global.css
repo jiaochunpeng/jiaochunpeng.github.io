@@ -31,6 +31,10 @@ body {
   min-height: 100vh;
 }
 
+main {
+  padding-top: var(--nav-height);
+}
+
 a {
   color: var(--accent);
   text-decoration: none;
