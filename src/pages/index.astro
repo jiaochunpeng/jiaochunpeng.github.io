@@ -36,6 +36,22 @@ for (const line of resumeMd.split('\n')) {
   }
 }
 if (current) experience.push(current);
+
+const summaries = {
+  'Beem Credit Union': 'Lead scalable data platform design and AI agent development for digital products, enterprise analytics, and CRM automation across the full data lifecycle.',
+  'OCS Ontario Cannabis Store': 'Led data infrastructure architecture, governance framework, and team mentorship. Delivered 80% performance gains and migrated legacy SQL to Delta Lakehouse.',
+  'Avanade': 'Managed Dynamics CRM data architecture and project delivery. Designed PySpark ingestion framework adopted as enterprise standard (~$10M CAD).',
+  'Accenture — Associated Manager': 'Delivered extensible ingestion framework and Star Schema Datamart, achieving 4x reporting speed and 80x performance improvement on Hive.',
+  'Accenture — Senior Application Developer': 'Sustained 12 Tier-1 applications, executed Dynamics CRM migration validating 2000+ vendor profiles, and modernized apps with Docker and Azure API Gateway.',
+  'Algonquin College': 'Delivered end-to-end solutions from requirements analysis through coding, testing, and deployment across development, staging, and production environments.',
+  'MontERP': 'Developed T-SQL business logic layer, EDI/ETL packages, and optimized database performance as primary database developer for production systems.',
+};
+
+function summaryKey(job) {
+  if (job.company === 'Accenture' && job.role.startsWith('Associated')) return 'Accenture — Associated Manager';
+  if (job.company === 'Accenture' && job.role.startsWith('Senior Application Developer')) return 'Accenture — Senior Application Developer';
+  return job.company;
+}
 ---
 
 <Layout title="Home">
@@ -61,8 +77,8 @@ if (current) experience.push(current);
       <h2 class="section-title">Past Experience</h2>
       <div class="experience-list">
         {experience.map((job) => {
-          const visible = job.bullets.slice(0, 3);
-          const extra = job.bullets.slice(3);
+          const key = summaryKey(job);
+          const summary = summaries[key] || job.bullets.slice(0, 2).join(' ');
           return (
           <article class="card exp-card">
             <div class="exp-header">
@@ -73,18 +89,16 @@ if (current) experience.push(current);
               </div>
               <span class="exp-period">{job.period}</span>
             </div>
-            <ul class="exp-bullets">
-              {visible.map((b) => <li>{b}</li>)}
-            </ul>
-            {extra.length > 0 && (
+            <p class="exp-summary">{summary}</p>
+            {job.bullets.length > 0 && (
               <div class="exp-extra-wrap">
-                <button class="exp-btn" aria-label="Show more">
+                <button class="exp-btn" aria-label="Show details">
                   <span class="exp-btn-icon">+</span>
-                  <span class="exp-btn-label">{extra.length} more</span>
+                  <span class="exp-btn-label">details</span>
                 </button>
                 <div class="exp-extra">
                   <ul>
-                    {extra.map((b) => <li>{b}</li>)}
+                    {job.bullets.map((b) => <li>{b}</li>)}
                   </ul>
                 </div>
               </div>
@@ -141,7 +155,7 @@ if (current) experience.push(current);
     const label = btn.querySelector('.exp-btn-label');
     const isOpen = extra.classList.toggle('open');
     icon.textContent = isOpen ? '−' : '+';
-    label.textContent = isOpen ? 'less' : extra.children.length + ' more';
+    label.textContent = isOpen ? 'less' : 'details';
     btn.classList.toggle('active', isOpen);
   });
 </script>
@@ -322,26 +336,11 @@ if (current) experience.push(current);
     font-family: var(--font-mono);
   }
 
-  .exp-bullets {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .exp-bullets li {
+  .exp-summary {
     font-size: 0.9rem;
     color: var(--text-secondary);
-    padding: 0.25rem 0;
-    position: relative;
-    padding-left: 1rem;
     line-height: 1.6;
-  }
-
-  .exp-bullets li::before {
-    content: '–';
-    position: absolute;
-    left: 0;
-    color: var(--accent);
+    margin: 0 0 0.75rem;
   }
 
   .exp-extra-wrap {
