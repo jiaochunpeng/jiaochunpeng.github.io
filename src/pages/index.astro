@@ -12,7 +12,7 @@ const recentPosts = allPosts
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 3);
 
-const resumeMd = fs.readFileSync('/home/joseph/MyProjects/my-job-agent/resume/joseph-jiao.md', 'utf-8');
+const resumeMd = fs.readFileSync('src/data/resume.md', 'utf-8');
 
 const experience = [];
 let current = null;
@@ -324,13 +324,17 @@ if (current) experience.push(current);
   }
 
   .exp-bullets {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease;
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.3s ease;
   }
 
   .exp-bullets.open {
-    max-height: 500px;
+    grid-template-rows: 1fr;
+  }
+
+  .exp-bullets > ul {
+    overflow: hidden;
   }
 
   .exp-bullets ul {
