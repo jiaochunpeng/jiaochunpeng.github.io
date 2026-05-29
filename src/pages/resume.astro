@@ -3,25 +3,102 @@ import Layout from '../layouts/Layout.astro';
 
 const experience = [
   {
-    role: 'Software Developer',
-    company: 'Tech Company',
-    period: '2024 — Present',
-    description: 'Building and maintaining web applications using modern frameworks and cloud infrastructure.',
+    role: 'Data Engineering Manager',
+    company: 'Beem Credit Union',
+    period: 'Jan 2026 – Present',
+    bullets: [
+      'Lead the design, development, and optimization of scalable data platforms powering digital products and enterprise analytics',
+      'Drive strategic direction of data engineering within the Digital Solutions team, ensuring delivery of high-quality, secure, and accessible data solutions',
+      'Align data initiatives with broader digital transformation goals to support innovation and data-driven decision-making',
+      "Built an AI-powered Dynamics 365 CRM Agent with 12 MCP tools, 8 agentic skills covering full data lifecycle: natural-language CRM querying, PII detection/masking, daily customer data extraction and sentiment analysis, pain points extraction, cross-environment data migration with topological dependency resolution",
+      'Built an AI-powered Database Administration Agent for PostgreSQL with automated PII detection, statistical confidence scoring, data masking, and SQL lineage analysis',
+    ],
   },
   {
-    role: 'Junior Developer',
-    company: 'Startup Inc.',
-    period: '2022 — 2024',
-    description: 'Developed features for a SaaS platform, worked on both frontend and backend systems.',
+    role: 'Manager, Data Engineering',
+    company: 'OCS Ontario Cannabis Store',
+    period: 'May 2023 – Jun 2025',
+    bullets: [
+      'Led a team of data engineers and analysts, managing hiring, mentorship, and performance',
+      'Architected and evolved the company\'s data infrastructure with scalable technologies',
+      'Established data quality standards and a governance framework with validation and privacy compliance',
+      'Led migration from SQL database to a Delta Lakehouse using Synapse Link for Dataverse',
+      'Boosted data application performance by 80% by migrating workflows from Azure Logic Apps to Azure Synapse PySpark notebooks',
+      'Reduced critical batch job runtime from 8–13 hours to 4 hours through performance tuning',
+    ],
+  },
+  {
+    role: 'Data Engineering Manager',
+    company: 'Avanade',
+    period: 'Mar 2021 – May 2023',
+    bullets: [
+      'Managed data architecture and project delivery for Dynamics CRM, overseeing environments and code repositories',
+      'Delivered 4 CRM data projects and platform migration on schedule',
+      'Mentored 5+ data engineers to lead project deliveries',
+      'Designed PySpark ingestion framework established as enterprise standard (~$10M CAD)',
+    ],
+  },
+  {
+    role: 'Associated Manager, Data Engineering',
+    company: 'Accenture',
+    period: 'May 2019 – May 2021',
+    bullets: [
+      'Designed and delivered an extensible Ingestion framework supporting Type 1/2/4 workflows across Hive/SQL, core codebase for four major data projects',
+      'Accelerated reporting performance by 4x and slashed time costs by 75% by constructing the first Star Schema Datamart in three weeks',
+      'Streamlined ETL pipelines from legacy warehouse to Hive Data Lake, cutting runtime from 17h to under 4h',
+      'Eliminated memory issues on Hive data nodes by refactoring legacy ingestion, achieving 80x performance improvement',
+    ],
+  },
+  {
+    role: 'Senior Application Developer / Operation Team Lead',
+    company: 'Accenture',
+    period: 'Sep 2016 – May 2019',
+    bullets: [
+      'Sustained and enhanced 12 Tier 1 applications across Finance, Treasury, Capital Markets, and Enterprise Solutions',
+      'Executed data migration to Dynamics CRM, validating 2000+ vendor profiles',
+      'Modernized a Tier 1 application as a containerized solution using Docker and Azure API Gateway',
+    ],
+  },
+  {
+    role: 'Senior Application Developer',
+    company: 'Algonquin College',
+    period: '2015 – 2016',
+    bullets: [
+      'Analyzed user requirements and delivered end-to-end solutions from coding to deployment',
+    ],
+  },
+  {
+    role: 'SQL Database Developer',
+    company: 'MontERP',
+    period: '2012 – 2015',
+    bullets: [
+      'Developed stored procedures, UDFs, and triggers with T-SQL for business logic layer',
+      'Created processes and packages for EDI and ETL',
+      'Optimized database and T-SQL performance',
+    ],
   },
 ];
 
 const education = [
   {
-    degree: 'B.S. in Computer Science',
-    school: 'University',
-    period: '2018 — 2022',
+    degree: 'Bachelor of Science, Physics',
+    school: 'Nankai University',
   },
+];
+
+const certifications = [
+  'Microsoft Certified: Azure Data Fundamentals (Jul 2021)',
+  'Microsoft Certified: Azure Fundamentals (Jun 2021)',
+  'Microsoft Certified Professional (MCP) — Microsoft SQL Server (Nov 2015)',
+];
+
+const skillGroups = [
+  { category: 'Data & AI', items: ['Azure Synapse', 'Fabric', 'Data Lake', 'PySpark', 'ADF', 'Databricks', 'Hive', 'AI/ML', 'MCP', 'LLM Agents'] },
+  { category: 'CRM', items: ['Dynamics 365', 'OData API', 'Azure AD Integration', 'Dataverse', 'Synapse Link'] },
+  { category: 'Development', items: ['Python', 'SQL', 'T-SQL', 'C#', '.NET', 'FastMCP', 'Browser-use'] },
+  { category: 'Infrastructure', items: ['Airflow', 'PostgreSQL', 'Docker', 'CI/CD', 'Azure DevOps', 'Azure API Gateway'] },
+  { category: 'Agentic AI', items: ['MCP Servers', 'LLM Agents', 'Browser Automation', 'RAG', 'Browser-use', 'CloakBrowser'] },
+  { category: 'Other', items: ['ETL Pipelines', 'Data Warehousing', 'Delta Lakehouse', 'Data Governance', 'PII Detection'] },
 ];
 ---
 
@@ -30,7 +107,7 @@ const education = [
     <div class="container">
       <h1 class="page-title">Resume</h1>
       <p class="page-desc">
-        <a href="/resume.pdf" class="download-link" download>Download PDF &darr;</a>
+        Joseph Jiao &mdash; Data Engineering Manager &mdash; Ottawa, ON
       </p>
     </div>
   </section>
@@ -47,7 +124,11 @@ const education = [
                 <span class="timeline-company">{job.company}</span>
               </div>
               <span class="timeline-period">{job.period}</span>
-              <p class="timeline-desc">{job.description}</p>
+              <ul class="timeline-bullets">
+                {job.bullets.map((b) => (
+                  <li>{b}</li>
+                ))}
+              </ul>
             </div>
           ))}
         </div>
@@ -62,24 +143,32 @@ const education = [
                 <h3 class="timeline-role">{edu.degree}</h3>
                 <span class="timeline-company">{edu.school}</span>
               </div>
-              <span class="timeline-period">{edu.period}</span>
             </div>
           ))}
         </div>
       </section>
 
       <section class="resume-section">
+        <h2 class="section-title">Certifications</h2>
+        <ul class="cert-list">
+          {certifications.map((c) => (
+            <li>{c}</li>
+          ))}
+        </ul>
+      </section>
+
+      <section class="resume-section">
         <h2 class="section-title">Skills</h2>
-        <div class="skills-grid">
-          <span class="tag skill-tag">JavaScript/TypeScript</span>
-          <span class="tag skill-tag">Python</span>
-          <span class="tag skill-tag">React</span>
-          <span class="tag skill-tag">Node.js</span>
-          <span class="tag skill-tag">Docker</span>
-          <span class="tag skill-tag">PostgreSQL</span>
-          <span class="tag skill-tag">Git</span>
-          <span class="tag skill-tag">Linux</span>
-        </div>
+        {skillGroups.map((group) => (
+          <div class="skill-group">
+            <h3 class="skill-category">{group.category}</h3>
+            <div class="skills-grid">
+              {group.items.map((skill) => (
+                <span class="tag skill-tag">{skill}</span>
+              ))}
+            </div>
+          </div>
+        ))}
       </section>
     </div>
   </section>
@@ -100,10 +189,6 @@ const education = [
   .page-desc {
     color: var(--text-secondary);
     margin-top: 0.5rem;
-  }
-
-  .download-link {
-    font-size: 0.9rem;
   }
 
   .resume-content {
@@ -162,19 +247,68 @@ const education = [
     margin: 0.25rem 0 0.5rem;
   }
 
-  .timeline-desc {
+  .timeline-bullets {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .timeline-bullets li {
     font-size: 0.9rem;
     color: var(--text-secondary);
+    padding: 0.15rem 0;
+    position: relative;
+    padding-left: 1rem;
+  }
+
+  .timeline-bullets li::before {
+    content: '–';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+  }
+
+  .cert-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .cert-list li {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    padding: 0.3rem 0;
+    position: relative;
+    padding-left: 1rem;
+  }
+
+  .cert-list li::before {
+    content: '▹';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+  }
+
+  .skill-group {
+    margin-bottom: 1.25rem;
+  }
+
+  .skill-category {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    font-family: var(--font-mono);
   }
 
   .skills-grid {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.75rem;
+    gap: 0.5rem;
   }
 
   .skill-tag {
-    font-size: 0.85rem;
-    padding: 6px 16px;
+    font-size: 0.8rem;
+    padding: 4px 12px;
   }
 </style>

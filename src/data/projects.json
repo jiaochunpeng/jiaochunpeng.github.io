@@ -1,30 +1,58 @@
 [
   {
-    "title": "Project Alpha",
-    "description": "A web application that does something interesting. Built with modern tools and best practices.",
-    "tags": ["React", "TypeScript", "Node.js"],
-    "githubUrl": "https://github.com/jiaochunpeng/project-alpha",
-    "demoUrl": "https://project-alpha.vercel.app"
-  },
-  {
-    "title": "Project Beta",
-    "description": "A CLI tool for automating common development workflows. Designed for developer productivity.",
-    "tags": ["Go", "CLI", "Docker"],
-    "githubUrl": "https://github.com/jiaochunpeng/project-beta",
+    "title": "my-crm-agent",
+    "description": "AI-powered Dynamics 365 CRM Agent with 12 MCP tools and 8 agentic skills. Covers full data lifecycle: natural-language CRM querying, PII detection/masking, daily customer data extraction with sentiment analysis, pain points extraction, and cross-environment data migration with topological dependency resolution. Uses PostgreSQL for historical data and Airflow for orchestration.",
+    "tags": ["Python", "MCP", "Dynamics 365", "PostgreSQL", "Airflow", "LLM"],
+    "githubUrl": "https://github.com/jiaochunpeng/my-crm-agent",
     "demoUrl": ""
   },
   {
-    "title": "Project Gamma",
-    "description": "A mobile-friendly dashboard for monitoring system metrics and application health in real-time.",
-    "tags": ["Vue.js", "Python", "WebSocket"],
-    "githubUrl": "https://github.com/jiaochunpeng/project-gamma",
-    "demoUrl": "https://project-gamma.vercel.app"
+    "title": "my-dba-agent",
+    "description": "AI-powered Database Administration Agent for PostgreSQL with automated PII detection across database tables, statistical confidence scoring, data masking with obfuscation and synthetic replacement strategies, and SQL lineage analysis.",
+    "tags": ["Python", "MCP", "PostgreSQL", "PII Detection", "LLM"],
+    "githubUrl": "https://github.com/jiaochunpeng/my-dba-agent",
+    "demoUrl": ""
   },
   {
-    "title": "Project Delta",
-    "description": "An open-source library for data transformation and validation with full TypeScript support.",
-    "tags": ["TypeScript", "npm", "Open Source"],
-    "githubUrl": "https://github.com/jiaochunpeng/project-delta",
+    "title": "core-conversational-agent",
+    "description": "Agentic core-banking POC featuring an MCP server that wraps a mocked Fiserv DNA with the Intent → Adjudicator → Execute pattern. Demonstrates bounded AI: the LLM produces typed Intents, a deterministic Pydantic Adjudicator validates them, and only approved Commands reach the core.",
+    "tags": ["Python", "MCP", "FastMCP", "Pydantic", "Fiserv DNA"],
+    "githubUrl": "https://github.com/jiaochunpeng/core-conversational-agent",
+    "demoUrl": ""
+  },
+  {
+    "title": "dataverse-to-adls-sync",
+    "description": "Incremental synchronization from Dataverse to Azure Data Lake Storage using Synapse Link and serverless SQL. Handles large-volume CRM data extraction with watermarking, schema mapping, and delta tracking.",
+    "tags": ["Python", "Dataverse", "Azure Data Lake", "Synapse", "ETL"],
+    "githubUrl": "https://github.com/jiaochunpeng/dataverse-to-adls-sync",
+    "demoUrl": ""
+  },
+  {
+    "title": "dna-to-crm-inhouse",
+    "description": "Azure Functions app that bridges legacy SSIS-based CSV-to-CRM data loads with the modern Dataverse Web API UpsertMultiple action. Enables high-throughput bulk upserts using alternate keys without GUID pre-resolution.",
+    "tags": ["Python", "Azure Functions", "Dataverse", "SSIS", "ETL"],
+    "githubUrl": "https://github.com/jiaochunpeng/dna-to-crm-inhouse",
+    "demoUrl": ""
+  },
+  {
+    "title": "central-mcp-lib",
+    "description": "Central MCP server library with attach/detach slash commands. Houses canonical copies of MCP servers (fiserv-dna, crmagent, dba) activated per project via directory junctions, standardizing the tool surface across all agent projects.",
+    "tags": ["Python", "MCP", "FastMCP", "CLI", "Tooling"],
+    "githubUrl": "https://github.com/jiaochunpeng/central-mcp-lib",
+    "demoUrl": ""
+  },
+  {
+    "title": "agent-relay",
+    "description": "Durable, auditable agent-to-agent request channel for AI agents. Implements store-and-poll inbox, A2A-compatible wire format, Teams + OS notifications, and human-in-the-loop approval with hash-chained audit. Built with FastAPI on Azure Container Apps.",
+    "tags": ["Python", "FastAPI", "Azure", "A2A", "LLM"],
+    "githubUrl": "https://github.com/jiaochunpeng/agent-relay",
+    "demoUrl": ""
+  },
+  {
+    "title": "my-job-agent",
+    "description": "AI-powered job search and application agent. Automates job discovery, resume tailoring, and application submission using browser automation and LLM agents.",
+    "tags": ["Python", "Browser-use", "LLM", "Automation"],
+    "githubUrl": "https://github.com/jiaochunpeng/my-job-agent",
     "demoUrl": ""
   }
 ]
