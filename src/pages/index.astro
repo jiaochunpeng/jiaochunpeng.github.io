@@ -1,4 +1,5 @@
 ---
+import fs from 'fs';
 import Layout from '../layouts/Layout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import { getCollection } from 'astro:content';
@@ -11,83 +12,30 @@ const recentPosts = allPosts
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 3);
 
-const experience = [
-  {
-    role: 'Data Engineering Manager',
-    company: 'Beem Credit Union',
-    period: 'Jan 2026 – Present',
-    bullets: [
-      'Lead the design, development, and optimization of scalable data platforms powering digital products and enterprise analytics',
-      'Drive strategic direction of data engineering within the Digital Solutions team, ensuring delivery of high-quality, secure, and accessible data solutions',
-      'Align data initiatives with broader digital transformation goals to support innovation and data-driven decision-making',
-      "Built an AI-powered Dynamics 365 CRM Agent with 12 MCP tools, 8 agentic skills covering full data lifecycle: natural-language CRM querying, PII detection/masking, daily customer data extraction and sentiment analysis, pain points extraction, cross-environment data migration with topological dependency resolution",
-      'Built an AI-powered Database Administration Agent for PostgreSQL with automated PII detection, statistical confidence scoring, data masking, and SQL lineage analysis',
-    ],
-  },
-  {
-    role: 'Manager, Data Engineering',
-    company: 'OCS Ontario Cannabis Store',
-    period: 'May 2023 – Jun 2025',
-    bullets: [
-      'Led a team of data engineers and analysts, managing hiring, mentorship, and performance',
-      'Architected and evolved the company\'s data infrastructure with scalable technologies',
-      'Established data quality standards and a governance framework with validation and privacy compliance',
-      'Led migration from SQL database to Delta Lakehouse using Synapse Link for Dataverse',
-      'Boosted data application performance by 80% by migrating workflows from Azure Logic Apps to Azure Synapse PySpark notebooks',
-      'Reduced critical batch job runtime from 8–13 hours to 4 hours through performance tuning',
-    ],
-  },
-  {
-    role: 'Data Engineering Manager',
-    company: 'Avanade',
-    period: 'Mar 2021 – May 2023',
-    bullets: [
-      'Managed data architecture and project delivery for Dynamics CRM, overseeing environments and code repositories',
-      'Delivered 4 CRM data projects and platform migration on schedule',
-      'Mentored 5+ data engineers to lead project deliveries',
-      'Designed PySpark ingestion framework established as enterprise standard (~$10M CAD)',
-    ],
-  },
-  {
-    role: 'Associated Manager, Data Engineering',
-    company: 'Accenture',
-    period: 'May 2019 – May 2021',
-    bullets: [
-      'Designed and delivered an extensible Ingestion framework supporting Type 1/2/4 workflows across Hive/SQL, core codebase for four major data projects',
-      'Accelerated reporting performance by 4x and slashed time costs by 75% by constructing the first Star Schema Datamart in three weeks',
-      'Streamlined ETL pipelines from legacy warehouse to Hive Data Lake, cutting runtime from 17h to under 4h',
-      'Eliminated memory issues on Hive data nodes by refactoring legacy ingestion, achieving 80x performance improvement',
-    ],
-  },
-  {
-    role: 'Senior Application Developer / Operation Team Lead',
-    company: 'Accenture',
-    period: 'Sep 2016 – May 2019',
-    bullets: [
-      'Sustained and enhanced 12 Tier 1 applications across Finance, Treasury, Capital Markets, and Enterprise Solutions',
-      'Executed data migration to Dynamics CRM, validating 2000+ vendor profiles',
-      'Modernized a Tier 1 application as a containerized solution using Docker and Azure API Gateway',
-    ],
-  },
-  {
-    role: 'Senior Application Developer',
-    company: 'Algonquin College',
-    period: '2015 – 2016',
-    bullets: [
-      'Analyzed user requirements and delivered end-to-end solutions from coding to deployment',
-    ],
-  },
-  {
-    role: 'SQL Database Developer',
-    company: 'MontERP',
-    period: '2012 – 2015',
-    bullets: [
-      'Developed stored procedures, UDFs, and triggers with T-SQL for business logic layer',
-      'Created processes and packages for EDI and ETL',
-      'Optimized database and T-SQL performance',
-    ],
-  },
-];
+const resumeMd = fs.readFileSync('/home/joseph/MyProjects/my-job-agent/resume/joseph-jiao.md', 'utf-8');
+
+const experience = [];
+let current = null;
+for (const line of resumeMd.split('\n')) {
+  const headerMatch = line.match(/^### (.+) — (.+)$/);
+  if (headerMatch) {
+    if (current) experience.push(current);
+    current = { company: headerMatch[1], role: headerMatch[2], period: '', bullets: [] };
+    continue;
+  }
+  if (current) {
+    const periodMatch = line.match(/^\*([^*]+)\*$/);
+    if (periodMatch) {
+      current.period = periodMatch[1];
+      continue;
+    }
+    const bulletMatch = line.match(/^- (.+)$/);
+    if (bulletMatch) {
+      current.bullets.push(bulletMatch[1].replace(/\*\*(.+?)\*\*/g, '$1'));
+    }
+  }
+}
+if (current) experience.push(current);
 ---
 
 <Layout title="Home">
