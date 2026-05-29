@@ -1,0 +1,184 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { getCollection } from 'astro:content';
+import projects from '../data/projects.json';
+
+const featuredProjects = projects.slice(0, 3);
+
+const allPosts = await getCollection('blog');
+const recentPosts = allPosts
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+---
+
+<Layout title="Home">
+  <section class="hero">
+    <div class="container">
+      <h1 class="hero-title">
+        <span class="hero-greeting">Hello, I'm</span>
+        <span class="hero-name">jiaochunpeng</span>
+      </h1>
+      <p class="hero-subtitle">
+        Developer &amp; creator. I build things with code.
+      </p>
+      <div class="hero-links">
+        <a href="/projects" class="btn btn-primary">View Projects</a>
+        <a href="/about" class="btn btn-secondary">About Me</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Featured Projects</h2>
+      <div class="project-grid">
+        {featuredProjects.map((project) => (
+          <ProjectCard project={project} />
+        ))}
+      </div>
+      <div class="section-footer">
+        <a href="/projects" class="btn btn-secondary">View All Projects &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Latest Posts</h2>
+      <div class="post-list">
+        {recentPosts.map((post) => (
+          <article class="post-card card">
+            <time class="post-date">{post.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
+            <h3 class="post-title">
+              <a href={`/blog/${post.slug}`}>{post.data.title}</a>
+            </h3>
+            <p class="post-desc">{post.data.description}</p>
+          </article>
+        ))}
+      </div>
+      <div class="section-footer">
+        <a href="/blog" class="btn btn-secondary">Read All Posts &rarr;</a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding-top: var(--nav-height);
+  }
+
+  .hero-title {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-greeting {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+  }
+
+  .hero-name {
+    font-size: 3.5rem;
+    font-weight: 800;
+    font-family: var(--font-mono);
+    color: var(--accent);
+    line-height: 1.1;
+  }
+
+  .hero-subtitle {
+    font-size: 1.15rem;
+    color: var(--text-secondary);
+    max-width: 500px;
+    margin-bottom: 2rem;
+  }
+
+  .hero-links {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #000;
+    border: none;
+  }
+
+  .btn-primary:hover {
+    background: var(--accent-hover);
+    color: #000;
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+  }
+
+  .btn-secondary:hover {
+    background: var(--accent);
+    color: #000;
+  }
+
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .section-footer {
+    margin-top: 2rem;
+    text-align: center;
+  }
+
+  .post-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .post-card {
+    padding: 1.5rem;
+  }
+
+  .post-date {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    font-family: var(--font-mono);
+  }
+
+  .post-title {
+    font-size: 1.2rem;
+    margin: 0.5rem 0;
+  }
+
+  .post-title a {
+    color: var(--text-primary);
+  }
+
+  .post-title a:hover {
+    color: var(--accent);
+  }
+
+  .post-desc {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+  }
+</style>
