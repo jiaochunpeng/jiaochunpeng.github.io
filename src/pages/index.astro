@@ -60,20 +60,38 @@ if (current) experience.push(current);
     <div class="container">
       <h2 class="section-title">Past Experience</h2>
       <div class="experience-list">
-        {experience.map((job) => (
+        {experience.map((job) => {
+          const visible = job.bullets.slice(0, 3);
+          const extra = job.bullets.slice(3);
+          return (
           <article class="card exp-card">
             <div class="exp-header">
-              <h3 class="exp-role">{job.role}</h3>
-              <span class="exp-company">{job.company}</span>
+              <div class="exp-title">
+                <span class="exp-role">{job.role}</span>
+                <span class="exp-sep">—</span>
+                <span class="exp-company">{job.company}</span>
+              </div>
               <span class="exp-period">{job.period}</span>
             </div>
             <ul class="exp-bullets">
-              {job.bullets.map((b) => (
-                <li>{b}</li>
-              ))}
+              {visible.map((b) => <li>{b}</li>)}
             </ul>
+            {extra.length > 0 && (
+              <div class="exp-extra-wrap">
+                <button class="exp-btn" aria-label="Show more">
+                  <span class="exp-btn-icon">+</span>
+                  <span class="exp-btn-label">{extra.length} more</span>
+                </button>
+                <div class="exp-extra">
+                  <ul>
+                    {extra.map((b) => <li>{b}</li>)}
+                  </ul>
+                </div>
+              </div>
+            )}
           </article>
-        ))}
+          );
+        })}
       </div>
     </div>
   </section>
@@ -112,6 +130,21 @@ if (current) experience.push(current);
     </div>
   </section>
 </Layout>
+
+<script>
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('.exp-btn');
+    if (!btn) return;
+    const wrap = btn.closest('.exp-extra-wrap');
+    const extra = wrap.querySelector('.exp-extra');
+    const icon = btn.querySelector('.exp-btn-icon');
+    const label = btn.querySelector('.exp-btn-label');
+    const isOpen = extra.classList.toggle('open');
+    icon.textContent = isOpen ? '−' : '+';
+    label.textContent = isOpen ? 'less' : extra.children.length + ' more';
+    btn.classList.toggle('active', isOpen);
+  });
+</script>
 
 <style>
   .hero {
@@ -255,19 +288,31 @@ if (current) experience.push(current);
 
   .exp-header {
     display: flex;
-    align-items: baseline;
-    gap: 0.75rem;
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 0.25rem;
     margin-bottom: 0.75rem;
   }
 
+  .exp-title {
+    display: flex;
+    align-items: baseline;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+  }
+
   .exp-role {
-    font-size: 1.15rem;
-    font-weight: 700;
+    font-size: 1.2rem;
+    font-weight: 800;
+  }
+
+  .exp-sep {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
   }
 
   .exp-company {
-    font-size: 0.85rem;
+    font-size: 1.2rem;
+    font-weight: 800;
     color: var(--accent);
   }
 
@@ -293,6 +338,76 @@ if (current) experience.push(current);
   }
 
   .exp-bullets li::before {
+    content: '–';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+  }
+
+  .exp-extra-wrap {
+    margin-top: 0.5rem;
+  }
+
+  .exp-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--accent);
+    padding: 0.25rem 0.75rem;
+    border-radius: 6px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+
+  .exp-btn:hover {
+    background: var(--accent);
+    color: #000;
+    border-color: var(--accent);
+  }
+
+  .exp-btn.active {
+    background: var(--accent);
+    color: #000;
+    border-color: var(--accent);
+  }
+
+  .exp-btn-icon {
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .exp-extra {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.3s ease;
+  }
+
+  .exp-extra.open {
+    grid-template-rows: 1fr;
+  }
+
+  .exp-extra > ul {
+    overflow: hidden;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .exp-extra li {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    padding: 0.25rem 0;
+    position: relative;
+    padding-left: 1rem;
+    line-height: 1.6;
+  }
+
+  .exp-extra li::before {
     content: '–';
     position: absolute;
     left: 0;
