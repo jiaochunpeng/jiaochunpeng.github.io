@@ -1,0 +1,180 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const experience = [
+  {
+    role: 'Software Developer',
+    company: 'Tech Company',
+    period: '2024 — Present',
+    description: 'Building and maintaining web applications using modern frameworks and cloud infrastructure.',
+  },
+  {
+    role: 'Junior Developer',
+    company: 'Startup Inc.',
+    period: '2022 — 2024',
+    description: 'Developed features for a SaaS platform, worked on both frontend and backend systems.',
+  },
+];
+
+const education = [
+  {
+    degree: 'B.S. in Computer Science',
+    school: 'University',
+    period: '2018 — 2022',
+  },
+];
+---
+
+<Layout title="Resume">
+  <section class="page-header">
+    <div class="container">
+      <h1 class="page-title">Resume</h1>
+      <p class="page-desc">
+        <a href="/resume.pdf" class="download-link" download>Download PDF &darr;</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container resume-content">
+      <section class="resume-section">
+        <h2 class="section-title">Experience</h2>
+        <div class="timeline">
+          {experience.map((job) => (
+            <div class="timeline-item">
+              <div class="timeline-header">
+                <h3 class="timeline-role">{job.role}</h3>
+                <span class="timeline-company">{job.company}</span>
+              </div>
+              <span class="timeline-period">{job.period}</span>
+              <p class="timeline-desc">{job.description}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section class="resume-section">
+        <h2 class="section-title">Education</h2>
+        <div class="timeline">
+          {education.map((edu) => (
+            <div class="timeline-item">
+              <div class="timeline-header">
+                <h3 class="timeline-role">{edu.degree}</h3>
+                <span class="timeline-company">{edu.school}</span>
+              </div>
+              <span class="timeline-period">{edu.period}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section class="resume-section">
+        <h2 class="section-title">Skills</h2>
+        <div class="skills-grid">
+          <span class="tag skill-tag">JavaScript/TypeScript</span>
+          <span class="tag skill-tag">Python</span>
+          <span class="tag skill-tag">React</span>
+          <span class="tag skill-tag">Node.js</span>
+          <span class="tag skill-tag">Docker</span>
+          <span class="tag skill-tag">PostgreSQL</span>
+          <span class="tag skill-tag">Git</span>
+          <span class="tag skill-tag">Linux</span>
+        </div>
+      </section>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .page-header {
+    padding-top: calc(var(--nav-height) + 4rem);
+    padding-bottom: 1rem;
+  }
+
+  .page-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    font-family: var(--font-mono);
+  }
+
+  .page-desc {
+    color: var(--text-secondary);
+    margin-top: 0.5rem;
+  }
+
+  .download-link {
+    font-size: 0.9rem;
+  }
+
+  .resume-content {
+    max-width: 700px;
+  }
+
+  .resume-section {
+    margin-bottom: 3rem;
+  }
+
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .timeline-item {
+    border-left: 2px solid var(--border);
+    padding-left: 1.25rem;
+    position: relative;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -5px;
+    top: 4px;
+    width: 8px;
+    height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+  }
+
+  .timeline-header {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .timeline-role {
+    font-size: 1.1rem;
+    font-weight: 700;
+  }
+
+  .timeline-company {
+    font-size: 0.9rem;
+    color: var(--accent);
+  }
+
+  .timeline-period {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    font-family: var(--font-mono);
+    margin: 0.25rem 0 0.5rem;
+  }
+
+  .timeline-desc {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+  }
+
+  .skills-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .skill-tag {
+    font-size: 0.85rem;
+    padding: 6px 16px;
+  }
+</style>
