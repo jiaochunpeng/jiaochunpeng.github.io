@@ -1,0 +1,30 @@
+[
+  {
+    "title": "Project Alpha",
+    "description": "A web application that does something interesting. Built with modern tools and best practices.",
+    "tags": ["React", "TypeScript", "Node.js"],
+    "githubUrl": "https://github.com/jiaochunpeng/project-alpha",
+    "demoUrl": "https://project-alpha.vercel.app"
+  },
+  {
+    "title": "Project Beta",
+    "description": "A CLI tool for automating common development workflows. Designed for developer productivity.",
+    "tags": ["Go", "CLI", "Docker"],
+    "githubUrl": "https://github.com/jiaochunpeng/project-beta",
+    "demoUrl": ""
+  },
+  {
+    "title": "Project Gamma",
+    "description": "A mobile-friendly dashboard for monitoring system metrics and application health in real-time.",
+    "tags": ["Vue.js", "Python", "WebSocket"],
+    "githubUrl": "https://github.com/jiaochunpeng/project-gamma",
+    "demoUrl": "https://project-gamma.vercel.app"
+  },
+  {
+    "title": "Project Delta",
+    "description": "An open-source library for data transformation and validation with full TypeScript support.",
+    "tags": ["TypeScript", "npm", "Open Source"],
+    "githubUrl": "https://github.com/jiaochunpeng/project-delta",
+    "demoUrl": ""
+  }
+]
